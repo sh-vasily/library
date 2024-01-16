@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Windows.Input;
 
-namespace DbDemo.WPF.MVVM.Command;
+namespace Library.MVVM.Command;
 
 public sealed class RelayCommand : ICommand
 {
