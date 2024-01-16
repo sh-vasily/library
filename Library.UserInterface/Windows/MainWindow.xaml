@@ -1,0 +1,17 @@
+﻿<Window x:Class="DbDemo.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:controls="clr-namespace:DbDemo.Controls">
+        <TabControl>
+                <TabItem Header="Книги">
+                        <Grid>
+                                <controls:BooksControl/>
+                        </Grid>
+                </TabItem>
+                <TabItem Header="Абоненты">
+                        <Grid>
+                                <controls:UsersControl/>
+                        </Grid>
+                </TabItem>
+        </TabControl>        
+</Window>
