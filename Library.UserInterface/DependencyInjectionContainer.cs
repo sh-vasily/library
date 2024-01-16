@@ -4,12 +4,7 @@ namespace Library.UserInterface;
 
 internal static class DependencyInjectionContainer
 {
-    private static readonly IServiceCollection Services;
-    
-    static DependencyInjectionContainer()
-    {
-        Services = new ServiceCollection();
-    }
+    private static readonly IServiceCollection Services = new ServiceCollection();
     
     public static void Register<TService, TImplementation>() where TService: class
                                                              where TImplementation : class, TService 
