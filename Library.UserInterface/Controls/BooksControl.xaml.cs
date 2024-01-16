@@ -1,6 +1,6 @@
 ﻿using System.Windows.Controls;
 
-namespace DbDemo.Controls;
+namespace Library.UserInterface.Controls;
 
 public partial class BooksControl : UserControl
 {

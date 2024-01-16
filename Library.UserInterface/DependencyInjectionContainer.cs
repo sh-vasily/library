@@ -1,6 +1,6 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 
-namespace DbDemo;
+namespace Library.UserInterface;
 
 internal static class DependencyInjectionContainer
 {

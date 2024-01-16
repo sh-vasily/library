@@ -4,7 +4,7 @@ using Library.Persistance.Repository;
 using Library.Persistence.Repository;
 using Microsoft.Extensions.Configuration;
 
-namespace DbDemo;
+namespace Library.UserInterface;
 
 /// <summary>
 ///     Interaction logic for App.xaml

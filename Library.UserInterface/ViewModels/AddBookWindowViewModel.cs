@@ -1,6 +1,6 @@
-﻿using Lvm.ViewModel;
+﻿using Library.MVVM.ViewModel;
 
-namespace DbDemo.ViewModels;
+namespace Library.UserInterface.ViewModels;
 
 internal sealed class AddBookWindowViewModel : ViewModelBase
 {

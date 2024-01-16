@@ -1,14 +1,14 @@
-﻿<UserControl x:Class="DbDemo.Controls.BooksControl"
+﻿<UserControl x:Class="Library.UserInterface.Controls.BooksControl"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              mc:Ignorable="d"
-             xmlns:viewModels="clr-namespace:DbDemo.ViewModels"
+             xmlns:viewModels1="clr-namespace:Library.UserInterface.ViewModels"
              FontSize="40"
-             d:DataContext="{d:DesignInstance viewModels:BooksControlViewModel}">
+             d:DataContext="{d:DesignInstance viewModels1:BooksControlViewModel}">
     <UserControl.DataContext>
-        <viewModels:BooksControlViewModel />
+        <viewModels1:BooksControlViewModel />
     </UserControl.DataContext>
    <DataGrid ItemsSource="{Binding Books}" AutoGenerateColumns="False">
            <DataGrid.Columns>

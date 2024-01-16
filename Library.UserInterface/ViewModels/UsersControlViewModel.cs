@@ -4,11 +4,12 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
-using DbDemo.WPF.MVVM.Command;
+using DbDemo;
+using Library.MVVM.Command;
+using Library.MVVM.ViewModel;
 using Library.Persistence.Repository;
-using Lvm.ViewModel;
 
-namespace DbDemo.ViewModels;
+namespace Library.UserInterface.ViewModels;
 
 internal sealed class UsersControlViewModel : ViewModelBase
 {
