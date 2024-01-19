@@ -21,8 +21,14 @@
             <RowDefinition Height="Auto">
             </RowDefinition>
         </Grid.RowDefinitions>
-        <TextBox />
-        <Button Grid.Row="0" Grid.Column="1" Content="Find"/>
+        <TextBox
+            Text="{Binding SearchText, Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged}"/>
+        <Button 
+            Grid.Row="0" 
+            Grid.Column="1" 
+            Content="Find"
+            Command="{Binding FindCommand}"
+            />
         <DataGrid Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2" ItemsSource="{Binding Books}" AutoGenerateColumns="False">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Id" Width="100" Binding="{Binding Id}"/>

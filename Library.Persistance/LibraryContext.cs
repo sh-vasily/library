@@ -1,9 +1,10 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using DbDemo;
+using Microsoft.EntityFrameworkCore;
 using Npgsql;
 
-namespace DbDemo;
+namespace Library.Persistance;
 
-internal sealed class LibraryContext : DbContext
+public sealed class LibraryContext : DbContext
 {
     public LibraryContext()
     {

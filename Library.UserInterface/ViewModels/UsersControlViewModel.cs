@@ -13,17 +13,12 @@ namespace Library.UserInterface.ViewModels;
 
 internal sealed class UsersControlViewModel : ViewModelBase
 {
-    private readonly IUserRepository _userRepository;
-    private ObservableCollection<User> _users;
+    private readonly IUserRepository _userRepository = DependencyInjectionContainer.ResolveService<IUserRepository>();
+    private ObservableCollection<User> _users = [];
     private ICommand _insertCommand;
     private ICommand _selectCommand;
 
-    public UsersControlViewModel()
-    {
-        _userRepository = DependencyInjectionContainer.ResolveService<IUserRepository>();
-        Users = new ObservableCollection<User>();
-        Task.Run(() => SelectUsersAsync());
-    }
+    public UsersControlViewModel() => Task.Run(() => SelectUsersAsync());
 
     public ICommand SelectCommand =>
         _selectCommand ??= new RelayCommand(async _ => await SelectUsersAsync());

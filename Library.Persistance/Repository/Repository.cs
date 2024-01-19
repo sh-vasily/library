@@ -10,7 +10,7 @@ public interface IRepository<T>
 
 public class Repository<T> : IRepository<T> where T : class
 {
-    private readonly LibraryContext _libraryContext = new();
+    protected readonly LibraryContext _libraryContext = new();
 
     public Task<List<T>> GetAll(int pageNumber, int pageSize, CancellationToken cancellationToken = default)
     {

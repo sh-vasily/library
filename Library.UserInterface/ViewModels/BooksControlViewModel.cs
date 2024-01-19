@@ -13,24 +13,32 @@ namespace Library.UserInterface.ViewModels;
 
 internal sealed class BooksControlViewModel : ViewModelBase
 {
-    private readonly IBookRepository _bookRepository;
-    private ObservableCollection<Book> _books;
+    private readonly IBookRepository _bookRepository = DependencyInjectionContainer.ResolveService<IBookRepository>();
+    private ObservableCollection<Book> _books = [];
     private ICommand _insertCommand;
     private ICommand _selectCommand;
+    private ICommand _findCommand;
+    private string _searchText;
 
-    public BooksControlViewModel()
-    {
-        _bookRepository = DependencyInjectionContainer.ResolveService<IBookRepository>();
-        Books = new ObservableCollection<Book>();
-        Task.Run(() => SelectBooksAsync());
-    }
+    public BooksControlViewModel() => Task.Run(() => SelectBooksAsync());
 
-    public ICommand SelectCommand =>
-        _selectCommand ??= new RelayCommand(async _ => await SelectBooksAsync());
+    public ICommand FindCommand =>
+        _findCommand ??= new RelayCommand(async _ => await GetBooksByNameAsync());
 
     public ICommand InsertCommand =>
         _insertCommand ??= new RelayCommand(async _ => await InsertEmployeeAsync());
 
+    public string SearchText
+    {
+        private get => _searchText;
+
+        set
+        {
+            _searchText = value;
+            RaisePropertyChanged(nameof(SearchText));
+        }
+    }
+    
     public ObservableCollection<Book> Books
     {
         get => _books;
@@ -46,6 +54,19 @@ internal sealed class BooksControlViewModel : ViewModelBase
         try
         {
             var books = await _bookRepository.GetAll(0,100, token);
+            Books = new ObservableCollection<Book>(books);
+        }
+        catch (AggregateException ex)
+        {
+            MessageBox.Show($"Failed to execute query: \"{ex.Message}\"");
+        }
+    }
+    
+    private async Task GetBooksByNameAsync(CancellationToken token = default)
+    {
+        try
+        {
+            var books = await _bookRepository.GetByName(SearchText, 0,100, token);
             Books = new ObservableCollection<Book>(books);
         }
         catch (AggregateException ex)
