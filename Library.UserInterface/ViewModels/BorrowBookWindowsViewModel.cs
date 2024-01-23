@@ -1,4 +1,5 @@
 ﻿using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Input;
 using DbDemo;
 using Library.MVVM.Command;
@@ -19,7 +20,11 @@ internal sealed class BorrowBookWindowsViewModel : UsersControlViewModel
     {
         if (o is User user && BookId is not null)
         {
-            Task.Run(() => _borrowedBooksRepository.BorrowBook(BookId.Value, user.Id));
+            Task.Run(async () =>
+            {
+                await _borrowedBooksRepository.BorrowBook(BookId.Value, user.Id);
+                MessageBox.Show($"Книга выдана абоненту {user.FirstName} {user.LastName}");
+            });
         }
     }
 }

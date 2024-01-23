@@ -5,11 +5,11 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
-using DbDemo;
 using Library.MVVM.Command;
 using Library.MVVM.ViewModel;
 using Library.Persistance.Models;
 using Library.Persistance.Repository;
+using Library.UserInterface.Windows;
 
 namespace Library.UserInterface.ViewModels;
 
@@ -18,15 +18,26 @@ internal sealed class BooksControlViewModel : ViewModelBase
     private readonly IBookRepository _bookRepository = DependencyInjectionContainer.ResolveService<IBookRepository>();
     private ObservableCollection<Book> _books = [];
     private ICommand _findCommand;
-    private ICommand _openBorrowBookDialogCommand;
+    private ICommand _borrowBookCommand;
+    private ICommand _selectBookCommand;
     private string _searchText;
-    public BooksControlViewModel() => Task.Run(SelectBooksAsync);
+    private int?  _selectedBookId;
+
+    public BooksControlViewModel()
+    {
+        Task.Run(SelectBooksAsync);
+        BookContext.BookIdChanged+= bookId => _selectedBookId = bookId;
+    } 
 
     public ICommand FindCommand =>
         _findCommand ??= new RelayCommand(async _ => await GetBooksByNameAsync());
 
-    public ICommand OpenBorrowBookDialogCommand =>
-        _openBorrowBookDialogCommand ??= new RelayCommand(SelectBook);
+    public ICommand SelectBookCommand =>
+        _selectBookCommand ??= new RelayCommand(SelectBook);
+    
+    public ICommand BorrowBookCommand =>
+        _borrowBookCommand ??= new RelayCommand(BorrowBook);
+    
 
     public string SearchText
     {
@@ -84,5 +95,16 @@ internal sealed class BooksControlViewModel : ViewModelBase
         }
 
         BookContext.SelectBook(book.Id);
+    }
+
+    private void BorrowBook(object o)
+    {
+        if (_selectedBookId is null)
+        {
+            return;
+        }
+
+        var window = new BorrowBookWindow(_selectedBookId.Value);
+        window.ShowDialog();
     }
 }
