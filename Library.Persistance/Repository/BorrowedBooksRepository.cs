@@ -18,6 +18,7 @@ public sealed class BorrowedBooksRepository : IBorrowedBooksRepository
         {
             BookId = bookId,
             UserId = userId,
+            BorrowDate = DateTime.UtcNow
         });
         await _libraryContext.SaveChangesAsync();
         await transaction.CommitAsync();

@@ -26,5 +26,10 @@ public class BorrowedBookEntityTypeConfiguration : IEntityTypeConfiguration<Borr
             .HasColumnName("user_id")
             .HasDefaultValue(0)
             .IsRequired();
+        
+        builder
+            .Property(s => s.BorrowDate)
+            .HasColumnName("borrow_date")
+            .IsRequired();
     }
 }
