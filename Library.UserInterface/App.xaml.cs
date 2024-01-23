@@ -23,5 +23,6 @@ public partial class App : Application
         var connectionString = configuration.GetConnectionString("Library");
         DependencyInjectionContainer.Register<IBookRepository, BookRepository>();
         DependencyInjectionContainer.Register<IUserRepository, UserRepository>();
+        DependencyInjectionContainer.Register<IBorrowedBooksRepository, BorrowedBooksRepository>();
     }
 }
