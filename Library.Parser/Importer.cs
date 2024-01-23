@@ -10,7 +10,7 @@ internal sealed class Importer(string connectionString)
     {
         var connection = new NpgsqlConnection(connectionString);
         await connection.OpenAsync();
-        var insertQuery = "insert into \"Users\" (firstname, lastname, birthday, address, gender) values(@FirstName, @LastName, @Birthday, @Address, @Gender::gender);";
+        var insertQuery = "insert into users (first_name, last_name, birthday, address, gender) values(@FirstName, @LastName, @Birthday, @Address, @Gender::gender);";
         using var reader = new StreamReader("./users.csv");
         var csv = new CsvReader(reader, ",");
         var firstLine = true;
@@ -48,10 +48,11 @@ internal sealed class Importer(string connectionString)
     {
         var connection = new NpgsqlConnection(connectionString);
         await connection.OpenAsync();
-        var insertQuery = "insert into \"Books\" (title, author, isbn) values(@Title, @Author, @ISBN);";
+        var insertQuery = "insert into books (title, author, isbn, count_instances) values(@Title, @Author, @ISBN, @CountInstances);";
         using var reader = new StreamReader("./books.csv");
         var csv = new CsvReader(reader, ";");
         var firstLine = true;
+        var random = new Random();
         while (csv.Read())
         {
             if (firstLine)
@@ -64,12 +65,13 @@ internal sealed class Importer(string connectionString)
             {
                 continue;
             }
-        
+            
             var param = new
             {
                 Title = csv[1],
                 Author = csv[2],
                 ISBN = isbn,
+                CountInstances = random.Next(2,5000)
             };
         
             await connection.ExecuteAsync(insertQuery, param);   

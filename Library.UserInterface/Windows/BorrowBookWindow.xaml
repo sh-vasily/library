@@ -1,0 +1,33 @@
+﻿<Window x:Class="Library.UserInterface.Windows.BorrowBookWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:controls="clr-namespace:Library.UserInterface.Controls"
+        xmlns:viewModels="clr-namespace:Library.UserInterface.ViewModels"
+        xmlns:b="http://schemas.microsoft.com/xaml/behaviors"
+        mc:Ignorable="d"
+        Title="BorrowBookWindow" Height="450" Width="800">
+    <Window.DataContext>
+        <viewModels:BorrowBookWindowsViewModel />
+    </Window.DataContext>
+    <DataGrid ItemsSource="{Binding Users}" AutoGenerateColumns="False">
+        <b:Interaction.Triggers>
+            <b:EventTrigger
+                EventName="MouseUp">
+                <b:InvokeCommandAction
+                    Command="{Binding BorrowBookCommand}"
+                    CommandParameter="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=DataGrid}, Path=SelectedItem}">
+                </b:InvokeCommandAction>
+            </b:EventTrigger>
+        </b:Interaction.Triggers>  
+        <DataGrid.Columns>
+            <DataGridTextColumn Header="Id" Width="100" Binding="{Binding Id}"/>
+            <DataGridTextColumn Header="FirstName" Width="400" Binding="{Binding FirstName}"/>
+            <DataGridTextColumn Header="LastName" Width="400" Binding="{Binding LastName}"/>
+            <DataGridTextColumn Header="Birthday" Width="400" Binding="{Binding Birthday}"/>
+            <DataGridTextColumn Header="Address" Width="400" Binding="{Binding Address}"/>
+            <DataGridTextColumn Header="Gender" Width="200" Binding="{Binding Gender}"/>
+        </DataGrid.Columns>
+    </DataGrid>
+</Window>

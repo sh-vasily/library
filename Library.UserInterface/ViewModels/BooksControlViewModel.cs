@@ -8,6 +8,7 @@ using DbDemo;
 using Library.MVVM.Command;
 using Library.MVVM.ViewModel;
 using Library.Persistance.Repository;
+using Library.UserInterface.Windows;
 
 namespace Library.UserInterface.ViewModels;
 
@@ -18,12 +19,16 @@ internal sealed class BooksControlViewModel : ViewModelBase
     private ICommand _insertCommand;
     private ICommand _selectCommand;
     private ICommand _findCommand;
+    private ICommand _openBorrowBookDialogCommand;
     private string _searchText;
 
     public BooksControlViewModel() => Task.Run(() => SelectBooksAsync());
 
     public ICommand FindCommand =>
         _findCommand ??= new RelayCommand(async _ => await GetBooksByNameAsync());
+
+    public ICommand OpenBorrowBookDialogCommand =>
+        _openBorrowBookDialogCommand ??= new RelayCommand(OpenBorrowBookDialog);
 
     public ICommand InsertCommand =>
         _insertCommand ??= new RelayCommand(async _ => await InsertEmployeeAsync());
@@ -88,5 +93,21 @@ internal sealed class BooksControlViewModel : ViewModelBase
             await SelectBooksAsync(token);
         }*/
         
+    }
+    
+    private void OpenBorrowBookDialog(object o)
+    {
+        if (o is not Book book)
+        {
+            return;
+        }
+        var borrowBookWindow = new BorrowBookWindow(book.Id);
+        var dialogResult = borrowBookWindow.ShowDialog();
+
+        if (dialogResult.HasValue && dialogResult.Value)
+        {
+            //await SelectBooksAsync(token);
+        }
+
     }
 }
