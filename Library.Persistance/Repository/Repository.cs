@@ -1,23 +1,17 @@
-﻿using DbDemo;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 
 namespace Library.Persistance.Repository;
 
 public interface IRepository<T>
 {
-    Task<List<T>> GetAll(int pageNumber, int pageSize, CancellationToken cancellationToken = default);
+    ValueTask<T?> GetById(int id);
+    Task<List<T>> GetAll();
 }
 
 public class Repository<T> : IRepository<T> where T : class
 {
-    protected readonly LibraryContext _libraryContext = new();
+    protected readonly LibraryContext LibraryContext = new();
 
-    public Task<List<T>> GetAll(int pageNumber, int pageSize, CancellationToken cancellationToken = default)
-    {
-        return _libraryContext.Set<T>()
-            .Skip(pageNumber * pageSize)
-            .Take(pageSize)
-            .ToListAsync(cancellationToken);
-    }
-
+    public Task<List<T>> GetAll() => LibraryContext.Set<T>().ToListAsync();
+    public ValueTask<T?> GetById(int id) => LibraryContext.FindAsync<T>(id);
 }

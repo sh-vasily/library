@@ -1,19 +1,29 @@
-﻿<Window x:Class="DbDemo.MainWindow"
+﻿<Window x:Class="Library.UserInterface.Windows.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:controls1="clr-namespace:Library.UserInterface.Controls"
-        ResizeMode="NoResize"
         Width="1125">
-        <TabControl>
-                <TabItem Header="Книги">
-                        <Grid>
-                                <controls1:BooksControl/>
-                        </Grid>
-                </TabItem>
-                <TabItem Header="Абоненты">
-                        <Grid>
-                                <controls1:UsersControl/>
-                        </Grid>
-                </TabItem>
-        </TabControl>        
+        <Grid>
+                <Grid.RowDefinitions>
+                        <RowDefinition Height="2*">
+                        </RowDefinition>
+                        <RowDefinition Height="20*">
+                        </RowDefinition>        
+                </Grid.RowDefinitions>
+                <Border Background="GhostWhite" BorderBrush="Silver" BorderThickness="2" CornerRadius="8,8,8,8">
+                        <TextBlock FontSize="30">Система для учета книг и абонентов в библиотеке version 1.0.0</TextBlock>
+                </Border>
+                <TabControl Grid.Row="1">
+                        <TabItem Header="Книги">
+                                <Grid>
+                                        <controls1:BooksControl/>
+                                </Grid>
+                        </TabItem>
+                        <TabItem Header="Абоненты">
+                                <Grid>
+                                        <controls1:UsersControl/>
+                                </Grid>
+                        </TabItem>
+                </TabControl>  
+        </Grid>
 </Window>

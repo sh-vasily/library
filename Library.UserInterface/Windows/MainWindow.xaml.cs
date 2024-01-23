@@ -1,6 +1,6 @@
 ﻿using System.Windows;
 
-namespace DbDemo;
+namespace Library.UserInterface.Windows;
 
 /// <summary>
 ///     Interaction logic for MainWindow.xaml
@@ -9,6 +9,7 @@ public partial class MainWindow : Window
 {
     public MainWindow()
     {
+        Title = "Library";
         InitializeComponent();
     }
 }

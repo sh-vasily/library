@@ -6,31 +6,38 @@
              mc:Ignorable="d"
              xmlns:viewModels1="clr-namespace:Library.UserInterface.ViewModels"
              xmlns:b="http://schemas.microsoft.com/xaml/behaviors"
+             xmlns:controls="clr-namespace:Library.UserInterface.Controls"
              FontSize="40"
              d:DataContext="{d:DesignInstance viewModels1:BooksControlViewModel}">
     <UserControl.DataContext>
-        <viewModels1:BooksControlViewModel />
+        <viewModels1:BooksControlViewModel/>
     </UserControl.DataContext>
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="100"></ColumnDefinition>
-            <ColumnDefinition Width="Auto"></ColumnDefinition>
+            <ColumnDefinition Width="4*"/>
+            <ColumnDefinition Width="3*"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="50">
-            </RowDefinition>
-            <RowDefinition Height="Auto">
-            </RowDefinition>
+            <RowDefinition Height="2*"/>
+            <RowDefinition Height="20*"/>
+            <RowDefinition Height="5*"/>
         </Grid.RowDefinitions>
         <TextBox
             Text="{Binding SearchText, Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged}"/>
         <Button 
             Grid.Row="0" 
             Grid.Column="1" 
-            Content="Find"
+            Content="Найти книгу"
             Command="{Binding FindCommand}"
             />
-        <DataGrid Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2" ItemsSource="{Binding Books}" AutoGenerateColumns="False">
+        <DataGrid 
+            Grid.Column="0" 
+            Grid.Row="1" 
+            ItemsSource="{Binding Books}" 
+            AutoGenerateColumns="False"
+            ColumnWidth="*"
+            CanUserAddRows="false"
+            >
             <b:Interaction.Triggers>
                 <b:EventTrigger
                     EventName="MouseUp">
@@ -41,11 +48,28 @@
                 </b:EventTrigger>
             </b:Interaction.Triggers>    
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Id" Width="100" Binding="{Binding Id}"/>
-                <DataGridTextColumn Header="Title" Width="400" Binding="{Binding Title}"/>
-                <DataGridTextColumn Header="Author" Width="400" Binding="{Binding Author}"/>
-                <DataGridTextColumn Header="ISBN" Width="200" Binding="{Binding Isbn}"/>
+                <DataGridTextColumn Header="Title" Binding="{Binding Title}"/>
+                <DataGridTextColumn Header="Author" Binding="{Binding Author}"/>
             </DataGrid.Columns>
         </DataGrid>
+        <controls:BookInformationControl Grid.Row="1" Grid.Column="1" />
+        <Grid
+            Grid.Row="2"
+            Grid.Column="0"
+            Grid.ColumnSpan="2"
+            >
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Button Content="Добавить книгу" />
+            <Button Grid.Row="0" Grid.Column="1" Content="Редактировать книгу"/>
+            <Button Grid.Row="1" Grid.Column="0" Content="Получить список экземпляров книги" />
+            <Button Grid.Row="1" Grid.Column="1" Content="Выдать книгу абоненту" />
+        </Grid>
     </Grid>
 </UserControl>
