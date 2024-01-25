@@ -48,7 +48,7 @@ internal sealed class Importer(string connectionString)
     {
         var connection = new NpgsqlConnection(connectionString);
         await connection.OpenAsync();
-        var insertQuery = "insert into books (title, author, isbn, count_instances) values(@Title, @Author, @ISBN, @CountInstances);";
+        var insertBookQuery = "insert into books (title, author, isbn) values(@Title, @Author, @ISBN);";
         using var reader = new StreamReader("./books.csv");
         var csv = new CsvReader(reader, ";");
         var firstLine = true;
@@ -71,10 +71,27 @@ internal sealed class Importer(string connectionString)
                 Title = csv[1],
                 Author = csv[2],
                 ISBN = isbn,
-                CountInstances = random.Next(2,5000)
             };
+            await connection.ExecuteAsync(insertBookQuery, param);
+        }
+    }
+
+    internal async Task GenerateBookInstances()
+    {
+        var selectBooksQuery = "select id from books;";
+        var connection = new NpgsqlConnection(connectionString);
+        await connection.OpenAsync();
+        var bookIds = await connection.QueryAsync<int>(selectBooksQuery);
+        var random = new Random();
         
-            await connection.ExecuteAsync(insertQuery, param);   
+        foreach (var bookId in bookIds)
+        {
+            var insertBookInstanceQuery = "insert into books_instances(book_id) values(@bookId)";
+            var countInstances = random.Next(1, 100);
+            for (int i = 0; i < countInstances; i++)
+            {
+                await connection.ExecuteAsync(insertBookInstanceQuery, new { bookId });
+            }
         }
     }
 }

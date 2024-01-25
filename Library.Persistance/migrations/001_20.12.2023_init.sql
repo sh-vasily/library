@@ -3,8 +3,7 @@ CREATE TABLE IF NOT EXISTS books
     id      INTEGER PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
     isbn    INT NOT NULL,
     title   VARCHAR NOT NULL,
-    author  VARCHAR NOT NULL,
-    count_instances INT NOT NULL
+    author  VARCHAR NOT NULL
 );
 
 CREATE INDEX IF NOT EXISTS idx_books_title
@@ -32,6 +31,14 @@ ON users(first_name);
 CREATE INDEX IF NOT EXISTS idx_users_lastname
 ON users(last_name);
 
+CREATE TABLE IF NOT EXISTS books_instances
+(
+    id           INTEGER PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
+    book_id      INTEGER,    CONSTRAINT fk_book
+        FOREIGN KEY(book_id)
+            REFERENCES books(id)
+);
+
 CREATE TABLE IF NOT EXISTS borrowed_books
 (
     id           INTEGER PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
@@ -39,9 +46,9 @@ CREATE TABLE IF NOT EXISTS borrowed_books
     user_id      INTEGER,
     borrow_date  TIMESTAMP WITH TIME ZONE NOT NULL,
     return_date  TIMESTAMP WITH TIME ZONE NULL DEFAULT NULL,
-    CONSTRAINT fk_book
+    CONSTRAINT fk_books_instances
         FOREIGN KEY(book_id)
-            REFERENCES books(id),
+            REFERENCES books_instances(id),
     CONSTRAINT fk_user
         FOREIGN KEY(user_id)
             REFERENCES users(id)
