@@ -1,5 +1,4 @@
-﻿using DbDemo;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Library.Persistance.Models;
@@ -28,11 +27,6 @@ public class BookEntityTypeConfiguration : IEntityTypeConfiguration<Book>
         builder
             .Property(s => s.Isbn)
             .HasColumnName("isbn")
-            .IsRequired();
-        
-        builder
-            .Property(s => s.CountInstances)
-            .HasColumnName("count_instances")
             .IsRequired();
     }
 }

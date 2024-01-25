@@ -33,11 +33,21 @@ public sealed class BookInformationControlViewModel : ViewModelBase
             RaisePropertyChanged(nameof(AvailableCount));
         }
     }
+    
+    public int AllCount
+    {
+        get => _availableCount;
+        private set
+        {
+            _availableCount = value;
+            RaisePropertyChanged(nameof(AllCount));
+        }
+    }
 
     private async Task LoadBook(int bookId)
     {
         Book = await _bookRepository.GetById(bookId);
         var borrowedCount = await _borrowedBooksRepository.GetBorrowedBooksCount(bookId);
-        AvailableCount = Book.CountInstances - borrowedCount;
+        AvailableCount = AllCount - borrowedCount;
     }
 }

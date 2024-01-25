@@ -7,5 +7,6 @@ public sealed class Book
     public string Title { get; set; }
     public string Author { get; set; }
     public int Isbn { get; set; }
-    public int CountInstances { get; set; }
+    
+    public List<BookInstance> BookInstances { get; set; }
 }
