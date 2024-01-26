@@ -1,12 +1,10 @@
 ﻿using Library.Persistance.Models;
-using Microsoft.EntityFrameworkCore;
 
 namespace Library.Persistance.Repository;
 
 public interface IBorrowedBooksRepository : IRepository<BorrowedBook>
 {
     Task BorrowBook(int bookId, int userId);
-    Task<int> GetBorrowedBooksCount(int bookId);
 }
 
 public sealed class BorrowedBooksRepository : Repository<BorrowedBook>, IBorrowedBooksRepository
@@ -23,9 +21,4 @@ public sealed class BorrowedBooksRepository : Repository<BorrowedBook>, IBorrowe
         await LibraryContext.SaveChangesAsync();
         await transaction.CommitAsync();
     }
-
-    public Task<int> GetBorrowedBooksCount(int bookId) =>
-        LibraryContext.BorrowedBooks
-            .Where(book => book.BookId == bookId )
-            .CountAsync();
 }

@@ -53,3 +53,6 @@ CREATE TABLE IF NOT EXISTS borrowed_books
         FOREIGN KEY(user_id)
             REFERENCES users(id)
 );
+
+CREATE INDEX IF NOT EXISTS idx_borrowed_books_return_date
+    ON borrowed_books(return_date);

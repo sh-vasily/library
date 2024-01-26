@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using Library.MVVM.ViewModel;
 using Library.Persistance.Models;
 using Library.Persistance.Repository;
@@ -9,12 +10,12 @@ public sealed class BookInformationControlViewModel : ViewModelBase
 {
     private readonly IBookRepository _bookRepository = DependencyInjectionContainer.ResolveService<IBookRepository>();
     private readonly IBorrowedBooksRepository _borrowedBooksRepository = DependencyInjectionContainer.ResolveService<IBorrowedBooksRepository>();
-    private Book _book;
+    private BookWithInstances _book;
     private int _availableCount;
 
     public BookInformationControlViewModel() => BookContext.BookIdChanged +=id => Task.Run(async () => await LoadBook(id));
     
-    public Book Book
+    public BookWithInstances Book
     {
         get => _book;
         private set
@@ -46,8 +47,6 @@ public sealed class BookInformationControlViewModel : ViewModelBase
 
     private async Task LoadBook(int bookId)
     {
-        Book = await _bookRepository.GetById(bookId);
-        var borrowedCount = await _borrowedBooksRepository.GetBorrowedBooksCount(bookId);
-        AvailableCount = AllCount - borrowedCount;
+        Book = await _bookRepository.GetBookWithInstances(bookId);
     }
 }

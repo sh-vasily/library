@@ -7,4 +7,6 @@ public sealed class BorrowedBook
     public int UserId { get; set; }
     public DateTime BorrowDate { get; set; }
     public DateTime? ReturnDate { get; set; }
+
+    public BookInstance BookInstance { get; set; }
 }

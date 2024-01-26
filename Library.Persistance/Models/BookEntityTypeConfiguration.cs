@@ -28,5 +28,11 @@ public class BookEntityTypeConfiguration : IEntityTypeConfiguration<Book>
             .Property(s => s.Isbn)
             .HasColumnName("isbn")
             .IsRequired();
+
+        builder
+            .HasMany(book => book.BookInstances)
+            .WithOne(bookInstance => bookInstance.Book)
+            .HasForeignKey(book => book.BookId)
+            .HasPrincipalKey(book => book.Id);
     }
 }

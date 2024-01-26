@@ -2,7 +2,8 @@
 
 public class BookInstance
 {
-    public int Is { get; set; }
+    public int Id { get; set; }
     public int BookId { get; set; }
-    public List<BorrowedBook> BorrowedBooks { get; set; }
+    public Book Book { get; set; }
+    public ICollection<BorrowedBook> BorrowedBooks { get; set; }
 }

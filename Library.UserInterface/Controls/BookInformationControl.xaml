@@ -29,11 +29,11 @@
         </StackPanel>
         <StackPanel Orientation="Horizontal">
             <Label>Всего экземпляров:</Label>
-            <Label Content="{Binding Book.CountInstances}"/>
+            <Label Content="{Binding Book.AllCount}"/>
         </StackPanel>
         <StackPanel Orientation="Horizontal">
             <Label>В наличии:</Label>
-            <Label Content="{Binding AvailableCount}"/>
+            <Label Content="{Binding Book.AvailableCount}"/>
         </StackPanel>
     </StackPanel>
 </UserControl>

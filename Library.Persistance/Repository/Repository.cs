@@ -13,5 +13,5 @@ public class Repository<T> : IRepository<T> where T : class
     protected readonly LibraryContext LibraryContext = new();
 
     public Task<List<T>> GetAll() => LibraryContext.Set<T>().ToListAsync();
-    public ValueTask<T?> GetById(int id) => LibraryContext.FindAsync<T>(id);
+    public virtual ValueTask<T?> GetById(int id) => LibraryContext.FindAsync<T>(id);
 }
