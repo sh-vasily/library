@@ -1,7 +1,7 @@
-﻿using DbDemo;
-using Library.Persistance.Repository;
+﻿using Library.Persistance.Models;
 
-namespace Library.Persistence.Repository;
+namespace Library.Persistance.Repository;
 
 public interface IUserRepository : IRepository<User>;
-public sealed class UserRepository : Repository<User>, IUserRepository;
+public sealed class UserRepository(LibraryContext libraryContext) 
+    : Repository<User>(libraryContext), IUserRepository;

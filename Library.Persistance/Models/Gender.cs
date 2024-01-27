@@ -1,4 +1,4 @@
-﻿namespace DbDemo;
+﻿namespace Library.Persistance.Models;
 
 public enum Gender
 {

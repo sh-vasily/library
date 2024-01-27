@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace DbDemo;
+﻿namespace Library.Persistance.Models;
 
 public sealed class User
 {

@@ -41,13 +41,13 @@ CREATE TABLE IF NOT EXISTS books_instances
 
 CREATE TABLE IF NOT EXISTS borrowed_books
 (
-    id           INTEGER PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
-    book_id      INTEGER,
-    user_id      INTEGER,
-    borrow_date  TIMESTAMP WITH TIME ZONE NOT NULL,
-    return_date  TIMESTAMP WITH TIME ZONE NULL DEFAULT NULL,
+    id                    INTEGER PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
+    book_instance_id      INTEGER,
+    user_id               INTEGER,
+    borrow_date           TIMESTAMP WITH TIME ZONE NOT NULL,
+    return_date           TIMESTAMP WITH TIME ZONE NULL DEFAULT NULL,
     CONSTRAINT fk_books_instances
-        FOREIGN KEY(book_id)
+        FOREIGN KEY(book_instance_id)
             REFERENCES books_instances(id),
     CONSTRAINT fk_user
         FOREIGN KEY(user_id)

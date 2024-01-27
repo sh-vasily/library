@@ -7,7 +7,7 @@ public interface IBorrowedBooksRepository : IRepository<BorrowedBook>
     Task BorrowBook(int bookId, int userId);
 }
 
-public sealed class BorrowedBooksRepository : Repository<BorrowedBook>, IBorrowedBooksRepository
+public sealed class BorrowedBooksRepository(LibraryContext libraryContext) : Repository<BorrowedBook>(libraryContext), IBorrowedBooksRepository
 {
     public async Task BorrowBook(int bookId, int userId)
     {

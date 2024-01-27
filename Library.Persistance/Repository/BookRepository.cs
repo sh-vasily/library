@@ -11,6 +11,9 @@ public interface IBookRepository : IRepository<Book>
 };
 public sealed class BookRepository : Repository<Book>, IBookRepository
 {
+    public BookRepository(LibraryContext libraryContext) 
+        : base(libraryContext) { }
+
     public Task<List<Book>> GetByNameOrAuthor(string name, int pageNumber, int pageSize, CancellationToken cancellationToken = default) 
         => LibraryContext.Set<Book>()
             .Where(book => name

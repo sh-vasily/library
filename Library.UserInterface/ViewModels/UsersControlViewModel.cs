@@ -2,9 +2,9 @@
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using System.Windows;
-using DbDemo;
 using Library.MVVM.ViewModel;
-using Library.Persistence.Repository;
+using Library.Persistance.Models;
+using Library.Persistance.Repository;
 
 namespace Library.UserInterface.ViewModels;
 
