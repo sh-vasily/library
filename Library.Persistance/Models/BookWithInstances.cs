@@ -1,6 +1,6 @@
 ﻿namespace Library.Persistance.Models;
 
-public class BookWithInstances
+public sealed class BookWithInstances
 {
     public int Id { get; set; }
 

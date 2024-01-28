@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Library.Persistance.Models;
 
-public class BookEntityTypeConfiguration : IEntityTypeConfiguration<Book>
+public sealed class BookEntityTypeConfiguration : IEntityTypeConfiguration<Book>
 {
     public void Configure(EntityTypeBuilder<Book> builder)
     {
